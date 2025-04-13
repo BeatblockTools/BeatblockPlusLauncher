@@ -1,0 +1,22 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483647
+
+[[patches]]
+[patches.copy]
+target = "main.lua"
+position = "prepend"
+sources = ["prelaunch.lua"]
+
+[[patches]]
+[patches.pattern]
+target = "main.lua"
+pattern = "function love.load()"
+position = "after"
+payload = '''
+if not launch then
+	return
+end
+'''
+match_indent = true
